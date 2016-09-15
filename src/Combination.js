@@ -9,8 +9,7 @@ class Combination extends Component {
 
   render() {
     return (
-      <div>
-        <h2>RESULTS</h2>
+      <div className="result">
         {Object.keys(this.props.combinations).map(this.renderCombination)}
       </div>
     );

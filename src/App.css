@@ -31,6 +31,17 @@ body {
   text-align: left;
 }
 
+.Results {
+  
+}
+
+.result {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: auto;
+  width: 100%;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
