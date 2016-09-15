@@ -8,18 +8,25 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      lists: {
-        A: [["A1"], ["A2"]],
-        B: [["B1"], ["B2"]],
-        C: []
-      },
-      combinations: []
+    if(localStorage.getItem('state') !== null) {
+      this.state = localStorage.getObject('state');
+    } else {
+      this.state = {
+        lists: {
+          A: [["A1"], ["A2"]],
+          B: [["B1"], ["B2"]],
+          C: []
+        },
+        combinations: []
+      }
     }
   }
 
   componentDidMount() {
-    this.setState(this.state);
+    window.onbeforeunload = (ev) => {  
+      ev.preventDefault();
+      return ev.returnValue = 'Are you sure you want to close?';
+    }
   }
 
   combine = (group, id, text) => {
@@ -35,86 +42,73 @@ class App extends Component {
     }
 
     let k = 0;
-    let ind = 0;
-
-    // combineWith = (arr1) => {
-    //   console.log(arr1);
-    // }
+    // let ind = 0;
 
     // for(let i=0; i<Object.keys(this.state.lists.A).length; i++) {
       // console.log(this.state.lists.A[i]);
       this.state.lists.A.map((arr1, indexA) => {
         // console.log(indexA, k);
-        ind = k;
+        // ind = k;
         // k++;
         this.state.lists.B.map((arr, indexB) => {
           // console.log(arr1, arr, indexB, k, ind);
-          let c = 0;
-          let d = 0;
-          console.log(k);
+          // let c = 0;
+          // let d = 0;
+          // console.log(k);
           for(let j=0; j<arr.length; j++) {
             // console.log(i);
-            console.log("\t", c++);
+            // console.log("\t", c++);
             for(let i=0; i<arr1.length; i++) {
               // console.log(i, j);
-              console.log("\t\t" + d++, arr1[i] + ' ' + arr[j]);
-              combs[k].push(arr1[i] + ' ' + arr[j]);
+              // console.log("\t\t" + d++, arr1[i] + ' ' + arr[j]);
+              console.log(arr1[i])
+              console.log(arr[j])
+              if(arr1[i] !== '' && arr[j] !== '')
+                combs[k].push(arr1[i] + ' ' + arr[j]);
             }
           }
           
           k++;
+          return true;
         })
+        return true;
         // k++;
       });
-    // }
-
-
-    // for(let i=0; i<Object.keys(this.state.lists.B).length; i++) {
-    //   // console.log(this.state.lists.B[i]);
-    //   this.state.lists.B[i].map((arr1, indexB) => {
-    //     console.log(indexB, k);
-    //     ind = k;
-    //     k++;
-    //     this.state.lists.A.map((arr, indexA) => {
-    //       console.log(arr, arr1, indexA, k);
-    //       // combs[ind].push();
-    //     })
-    //   });
-    // }
-
-
-    // this.state.lists.B.map((arr) => {
-    //   console.log(arr);
-    // })
-
-    // console.log(this.state.lists.B);
-
-    // for(let j=0; j<Object.keys(this.state.lists.B).length; j++) {
-    //   for(let b=0; b<Object.keys(this.state.lists.B[j]).length; b++) {
-    //     for(let i=0; i<Object.keys(this.state.lists.A).length; i++) {
-    //       for(let a=0; a<Object.keys(this.state.lists.A[i]).length; a++) {
-    //         // console.log('k', k);
-    //         // combs[k].push(this.state.lists.A[i][a] + ' ' + this.state.lists.B[j][b]);
-    //         k-=b;
-    //       } 
-    //       k++;
-    //     }
-    //   }
     // }
 
     this.setState({
       combinations: combs
     });
-  };
+
+    localStorage.setObject('state', this.state);
+  }
 
   addField = (group) => {
+    console.log(group);
     let newState = this.state;
     newState.lists[group][Object.keys(this.state.lists[group]).length] = [];
     this.setState(newState);
-  };
+
+    // Try to focus last added textarea
+    try {
+      let l = document.querySelectorAll('div[rel="' + group + '"]')[0].querySelectorAll('textarea').length;
+      setTimeout(function() {
+        document.querySelectorAll('div[rel="' + group + '"]')[0].querySelectorAll('textarea')[l].focus();
+      }, 100);
+    } catch(e) {};
+  }
+
+  removeField = (group, id) => {
+    if(window.confirm("Delete column?")) {
+      let newState = this.state;
+      newState.lists[group].splice(id, 1);
+      this.setState(newState);
+      localStorage.setObject('state', this.state);
+    }
+  }
 
   renderGroup = (key) => {
-    return <Group key={key} index={key} lists={this.state.lists} combine={this.combine} addField={this.addField} />
+    return <Group key={key} index={key} lists={this.state.lists} combine={this.combine} addField={this.addField} removeField={this.removeField} />
   }
 
   // renderCombinations = (key) => {

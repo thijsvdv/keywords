@@ -31,15 +31,68 @@ body {
   text-align: left;
 }
 
+.Pane > div {
+  width: 100%;
+}
+
 .Results {
-  
+  padding: 2rem;
+}
+
+.field__add,
+textarea:focus {
+  outline: none;
+  background: #f8f8f8;
+}
+
+.field {
+  position: relative;
+  display: inline-block;
+  display: inline-flex;
+  margin-right: 1rem;
+}
+
+.field__remove {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.field__add {
+  padding: 0;
+  width: 290px;
+  // height: 100%;
+  background: none;
+  border: 1px dashed #ccc;
+  flex: 0 0 auto;
+  border-radius: 5px;
+  font-size: 44px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.field__add:hover {
+  background: #fafafa;
+}
+
+.fields {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 290px;
+}
+
+.fields,
+.result {
+  display: flex;
+  white-space: nowrap;
+  overflow: auto;
+  width: 100%;
 }
 
 .result {
   display: inline-block;
-  white-space: nowrap;
-  overflow: auto;
-  width: 100%;
 }
 
 @keyframes App-logo-spin {
