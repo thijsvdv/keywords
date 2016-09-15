@@ -41,18 +41,47 @@ class App extends Component {
     //   console.log(arr1);
     // }
 
-    for(let i=0; i<Object.keys(this.state.lists.A).length; i++) {
+    // for(let i=0; i<Object.keys(this.state.lists.A).length; i++) {
       // console.log(this.state.lists.A[i]);
-      this.state.lists.A[i].map((arr1, indexA) => {
-        console.log(indexA, k);
+      this.state.lists.A.map((arr1, indexA) => {
+        // console.log(indexA, k);
         ind = k;
-        k++;
+        // k++;
         this.state.lists.B.map((arr, indexB) => {
-          console.log(arr1, arr, indexB, k);
-          // combs[ind].push();
+          // console.log(arr1, arr, indexB, k, ind);
+          let c = 0;
+          let d = 0;
+          console.log(k);
+          for(let j=0; j<arr.length; j++) {
+            // console.log(i);
+            console.log("\t", c++);
+            for(let i=0; i<arr1.length; i++) {
+              // console.log(i, j);
+              console.log("\t\t" + d++, arr1[i] + ' ' + arr[j]);
+              combs[k].push(arr1[i] + ' ' + arr[j]);
+            }
+          }
+          
+          k++;
         })
+        // k++;
       });
-    }
+    // }
+
+
+    // for(let i=0; i<Object.keys(this.state.lists.B).length; i++) {
+    //   // console.log(this.state.lists.B[i]);
+    //   this.state.lists.B[i].map((arr1, indexB) => {
+    //     console.log(indexB, k);
+    //     ind = k;
+    //     k++;
+    //     this.state.lists.A.map((arr, indexA) => {
+    //       console.log(arr, arr1, indexA, k);
+    //       // combs[ind].push();
+    //     })
+    //   });
+    // }
+
 
     // this.state.lists.B.map((arr) => {
     //   console.log(arr);
