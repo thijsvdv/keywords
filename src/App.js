@@ -17,7 +17,8 @@ class App extends Component {
           B: [["B1"], ["B2"]],
           C: []
         },
-        combinations: []
+        combinations: [],
+        triples: []
       }
     }
   }
@@ -34,6 +35,7 @@ class App extends Component {
     newState.lists[group][id] = text.split(/\n/);
     this.setState(newState);
 
+    // Doubles
     let combs = [];
     for(let i=0; i<Object.keys(this.state.lists.A).length; i++) {
       for(let j=0; j<Object.keys(this.state.lists.B).length; j++) {
@@ -43,7 +45,9 @@ class App extends Component {
 
     let k = 0;
     this.state.lists.A.map((arr1, indexA) => {
+      // console.log(indexA, arr1);
       this.state.lists.B.map((arr, indexB) => {
+        // console.log("   " + indexB, arr);
         for(let j=0; j<arr.length; j++) {
           for(let i=0; i<arr1.length; i++) {
             if(arr1[i] !== '' && arr[j] !== '')
@@ -57,8 +61,36 @@ class App extends Component {
       return true;
     });
 
+    // Triples
+    let triples = [];
+    for(let i=0; i<Object.keys(this.state.combinations).length; i++) {
+      for(let j=0; j<Object.keys(this.state.lists.C).length; j++) {
+        triples.push([]);
+      }
+    }
+
+    let l = 0;
+    this.state.combinations.map((arr1, index) => {
+      // console.log(index, arr1);
+      this.state.lists.C.map((arr, indexC) => {
+        // console.log("   " + indexB, arr);
+        for(let j=0; j<arr.length; j++) {
+          for(let i=0; i<arr1.length; i++) {
+            if(arr1[i] !== '' && arr[j] !== '')
+              triples[l].push(arr1[i] + ' ' + arr[j]);
+          }
+        }
+        
+        l++;
+        return true;
+      })
+      return true;
+    });
+
+    // Save state
     this.setState({
-      combinations: combs
+      combinations: combs,
+      triples: triples
     });
 
     localStorage.setObject('state', this.state);
@@ -102,8 +134,12 @@ class App extends Component {
           {Object.keys(this.state.lists).map(this.renderGroup)}
         </div>
         <div className="Results">
-          <h2>RESULTS</h2>
+          <h2>RESULTS: doubles</h2>
           <Combination combinations={this.state.combinations} />
+        </div>
+        <div className="Results">
+          <h2>RESULTS: triples</h2>
+          <Combination combinations={this.state.triples} />
         </div>
       </div>
     );
