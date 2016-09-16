@@ -42,39 +42,20 @@ class App extends Component {
     }
 
     let k = 0;
-    // let ind = 0;
-
-    // for(let i=0; i<Object.keys(this.state.lists.A).length; i++) {
-      // console.log(this.state.lists.A[i]);
-      this.state.lists.A.map((arr1, indexA) => {
-        // console.log(indexA, k);
-        // ind = k;
-        // k++;
-        this.state.lists.B.map((arr, indexB) => {
-          // console.log(arr1, arr, indexB, k, ind);
-          // let c = 0;
-          // let d = 0;
-          // console.log(k);
-          for(let j=0; j<arr.length; j++) {
-            // console.log(i);
-            // console.log("\t", c++);
-            for(let i=0; i<arr1.length; i++) {
-              // console.log(i, j);
-              // console.log("\t\t" + d++, arr1[i] + ' ' + arr[j]);
-              console.log(arr1[i])
-              console.log(arr[j])
-              if(arr1[i] !== '' && arr[j] !== '')
-                combs[k].push(arr1[i] + ' ' + arr[j]);
-            }
+    this.state.lists.A.map((arr1, indexA) => {
+      this.state.lists.B.map((arr, indexB) => {
+        for(let j=0; j<arr.length; j++) {
+          for(let i=0; i<arr1.length; i++) {
+            if(arr1[i] !== '' && arr[j] !== '')
+              combs[k].push(arr1[i] + ' ' + arr[j]);
           }
-          
-          k++;
-          return true;
-        })
+        }
+        
+        k++;
         return true;
-        // k++;
-      });
-    // }
+      })
+      return true;
+    });
 
     this.setState({
       combinations: combs
@@ -111,20 +92,12 @@ class App extends Component {
     return <Group key={key} index={key} lists={this.state.lists} combine={this.combine} addField={this.addField} removeField={this.removeField} />
   }
 
-  // renderCombinations = (key) => {
-  //   //{Object.keys(this.state.combinations).map(this.renderCombinations)}
-  //   return <Combination key={key} combinations={this.state.combinations} />
-  // }
-
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <h2>Keyword Tool</h2>
         </div>
-        <p className="App-intro">
-          Enter keywords in the fields below to create combinations
-        </p>
         <div className="Pane">
           {Object.keys(this.state.lists).map(this.renderGroup)}
         </div>
