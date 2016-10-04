@@ -3,6 +3,7 @@ import Group from './Group.js';
 import Combination from './Combination.js';
 // import logo from './logo.svg';
 import './App.css';
+import twitter from './twitter.png';
 
 class App extends Component {
   constructor() {
@@ -128,6 +129,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
+          <p className="author"><a href="https://twitter.com/thijsvandevelde"><img src={ twitter } alt="Twitter" /></a></p>
           <h2>Keyword Tool</h2>
         </div>
         <div className="Pane">
@@ -141,6 +143,7 @@ class App extends Component {
           <h2>RESULTS: triples</h2>
           <Combination combinations={this.state.triples} />
         </div>
+        <p className="hireme">Made with Create React App by <a href="https://twitter.com/thijsvandevelde">Thijs Van de Velde</a></p>
       </div>
     );
   }

@@ -106,3 +106,18 @@ textarea {
   padding: 1rem;
   border: 1px solid #ccc;
 }
+
+.author {
+  float: right;
+  color: #fff;
+}
+
+.hireme {
+  color: #999;
+  font-weight: 300;
+
+}
+
+.hireme a {
+  color: #999;
+}
